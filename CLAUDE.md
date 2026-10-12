@@ -13,14 +13,27 @@ lifted out.
 already made and the questions still open. When a step is finished or a decision changes, update
 it in the same piece of work.
 
-There is no code yet. Add a Commands section here when the first command exists; do not list a
-command that has not been run.
+## Commands
+
+Only commands that have been run are listed here. Add one when it has been run, not before.
+
+```bash
+cd frontend
+npm install        # once
+npm run dev        # the test page, on http://localhost:5173
+npm run typecheck  # tsc --noEmit
+npm run build      # type-check, then a production build into dist/
+```
 
 ## How to work here
 
 The owner knows backends and voice agents well and is new to computer vision. They want to
 understand every piece that goes in, so:
 
+- **Discuss first; change nothing until approved.** No edits to code, `PLAN.md` or this file
+  until the owner has approved that specific change. Answer the question, list the exact edits
+  proposed, and wait. This comes before the instruction above to keep `PLAN.md` current: propose
+  the update, then make it once approved.
 - **Write from scratch.** A teammate's prototype exists (see "Related code"). Read it to learn
   which traps exist; never copy from it. Some of its choices are not the ones wanted here.
 - **Explain before writing.** The first time an idea appears (a landmark, a blendshape, a worker),
@@ -62,12 +75,15 @@ Design rules that follow from this:
 - **Events are facts, not judgements.** The pipeline says "looked away for 12 seconds". What that
   means is the agent's decision.
 - **Drop a late frame; never queue it.** A reading that arrives late is worth nothing.
+- **No fixed frame rate.** Each model runs at the rate its signal needs, inside a CPU budget on
+  the candidate's machine, which is also running the call. Rules measure a hold in seconds from
+  each message's capture time, never in frames.
 - **Event-based at the output, plain function calls inside.** No queues between pipeline stages.
 - **Cheap models decide when expensive ones run.**
 - **Numbers from the candidate's machine can be faked.** Never treat them as the only evidence
   for an assessment result.
 
-## Layout (planned — only the two `.md` files and `README.md` exist today)
+## Layout (planned — only `frontend/` exists today)
 
 ```
 frontend/      TypeScript: camera, frame sampling, MediaPipe, overlay, live event feed
@@ -118,8 +134,9 @@ recordings/    recorded per-frame output and clips — gitignored
 
 ## What moves into Xebit
 
-- `frontend/`'s capture-and-model code → `xebit-dashboard`, beside `src/components/livekit-room.tsx`.
-  Its `send` becomes a publish on the room's data channel.
+- `frontend/`'s frame-sampling and model code (`src/sampler.ts` so far) → `xebit-dashboard`, beside
+  `src/components/livekit-room.tsx`. It is handed the camera track LiveKit already opened; it
+  never opens the camera. Its `send` becomes a publish on the room's data channel.
 - `backend/vision/` → `xebit-api`. Its events go to the reducer.
-- Thrown away at that point: the test page around the camera, the WebSocket server, the recording
-  tools.
+- Thrown away at that point: the test page, including the code that asks for the camera
+  (`src/camera.ts`), the WebSocket server, the recording tools.

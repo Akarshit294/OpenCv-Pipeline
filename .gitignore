@@ -1,0 +1,8 @@
+# Installed packages and build output
+node_modules/
+dist/
+
+# Recorded camera output: measurements of a person's face and body. Never commit.
+recordings/
+
+.DS_Store

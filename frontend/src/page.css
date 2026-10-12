@@ -1,0 +1,135 @@
+/* Plain styles for the test page. None of this moves into the dashboard, which uses Tailwind. */
+
+body {
+  margin: 0;
+  font: 15px/1.5 system-ui, sans-serif;
+  color: #1f2328;
+  background: #f6f7f9;
+}
+
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 8px 14px;
+  border: 1px solid #1f2328;
+  border-radius: 6px;
+  background: #1f2328;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 820px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+section {
+  padding: 16px;
+  border: 1px solid #d9dde3;
+  border-radius: 8px;
+  background: #fff;
+}
+
+video,
+canvas {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  background: #000;
+}
+
+/* The copy is shown at the camera's on-screen size with its pixels left square, not smoothed, so
+   what a smaller width throws away is visible. */
+canvas {
+  image-rendering: pixelated;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 12px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Label on the left, value on the right. */
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 16px;
+  margin: 12px 0 0;
+}
+
+dt {
+  color: #5c6570;
+}
+
+dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A square filled with one pixel's colour. */
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border: 1px solid #d9dde3;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+
+.note {
+  margin: 10px 0 0;
+  color: #5c6570;
+}
+
+.problem {
+  padding: 10px 12px;
+  border: 1px solid #fecdca;
+  border-radius: 6px;
+  background: #fef3f2;
+  color: #b42318;
+}
